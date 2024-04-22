@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'form_style.css' %}">
+{% endblock styles %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Submit" class="btn btn-outline-success">
+    <p>Don't have an account?<a href="/auth/sign-up/">Create one</a></p>
+  </form>
+{% endblock content %}

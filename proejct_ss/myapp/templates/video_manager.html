@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Video Manager</h2>
+<hr>
+
+<a class="btn btn-success mb-3" href="{% url 'video_upload' %}" role="button">Upload New Video</a>
+<table class="table table-bordered table-light table-hover text-center align-middle">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Vieoo Title</th>
+        <th scope="col">Uploader</th>
+        <th scope="col">File Path</th>
+        <th scope="col">Created_at</th>
+        <th scope="col">Modified_at</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for video in videos %}
+        <tr>
+            <th scope="row" class="counter"></th>
+            <td>{{ video.title }}</td>
+            <td>{{ video.uploader }} ({{ video.uploader.type }})</td>
+            <td><a href='{{ video.content.url }}' target="_blank">{{ video.content| truncatechars:25 }}</a></td>
+            <td>{{ video.created_at }}</td>
+            <td>{{ video.modified_at }}</td>
+            <td style="display:flex;">
+                <form action="{% url 'update_video_form' %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-warning m-1" name="update_video_id" value="{{video.id}}">Update</button>
+                </form>
+                <form action="{% url 'delete_video' %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-danger m-1" name="delete_video_id" value="{{video.id}}">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+{% block scripts %}
+  <script src="{% static 'table_counter.js' %}"></script>
+{% endblock scripts %}

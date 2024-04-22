@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h2>Users</h2>
+<hr>
+<table class="table table-bordered table-light table-hover text-center align-middle">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in default_users %}
+  <tr>
+    <th class="counter"></th>
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.first_name}}</td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.gender}}</td>
+    <td style="display: flex;"><form action="/myapp/update-user-form/" method="post">{% csrf_token %}
+      <button type="submit" class="btn btn-outline-warning" name="update_id" value="{{ user.id }}">Update</button>
+    </form>
+    <form action="/myapp/delete-user/" method="post">{% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger ms-2" name="delete_id" value="{{ user.id }}">Delete</button>
+    </form></td>
+    
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+<a href="/myapp/create-user" class="btn btn-success mt-2">Create New User</a>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'table_counter.js' %}"></script>
+{% endblock scripts %}

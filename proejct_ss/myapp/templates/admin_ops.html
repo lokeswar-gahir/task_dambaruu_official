@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Admins</h2>
+<hr>
+<table class="table table-bordered table-light table-hover text-center align-middle">
+    <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Gender</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+    <tbody>
+    {% for admin in admins %}
+    <tr>
+        <th class="counter"></th>
+        {% if admin.id == user.id %}
+            <td>*{{admin.username}}</td>
+        {% else %}
+            <td>{{admin.username}}</td>
+        {% endif %}
+        <td>{{admin.email}}</td>
+        <td>{{admin.first_name}}</td>
+        <td>{{admin.last_name}}</td>
+        <td>{{admin.gender}}</td>
+        <td style="display:flex;">
+            <form action="/myapp/update-admin-form/" method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-outline-warning" name="update_id" value="{{ admin.id }}">Update</button>
+            </form>
+
+            <form action="/myapp/delete-admin/" method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger ms-2" name="delete_id" value="{{ admin.id }}">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="/myapp/create-admin" class="btn btn-success mt-2">Create New Admin</a>
+
+
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'table_counter.js' %}"></script>
+{% endblock scripts %}

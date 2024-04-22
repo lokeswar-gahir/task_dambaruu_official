@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <form action="/myapp/update-user/" method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+  
+      {% if field.label == 'User Type' %}
+        {% if user.type == 'SUPER_ADMIN' %}
+          {{ field|as_crispy_field }}
+        {% endif %}
+      {% else %}
+        {{ field|as_crispy_field }}
+      {% endif %}
+        
+    {% endfor %}
+    <button type="submit" class="btn btn-outline-warning">Update User</button>
+  </form>
+{% endblock content %}

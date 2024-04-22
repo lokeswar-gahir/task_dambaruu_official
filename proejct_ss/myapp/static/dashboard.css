@@ -1,0 +1,24 @@
+.video-wrapper{
+    display: flex;
+    margin-bottom: 20px;
+    padding:20px;
+    box-shadow: 0px 0px 7px #1f1e1e72;
+}
+
+.video-details-wrapper{
+    margin:10px;
+    h3{
+        color: #cc3366;
+    }
+}
+
+.video-title{
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.video-uploader-details{
+    color:rgb(117, 121, 121);
+}

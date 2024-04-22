@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+{% endblock head %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+{% endblock styles %}
+
+{% block content %}
+
+<h2>Available Videos</h2>
+<hr>
+
+{% for video in videos %}
+    <div class="video-wrapper">
+        <div>
+            <!-- <video src="{{ video.content.url}}" id="video" controls></video> -->
+            <video width="450" height="253" controls preload="metadata" style="background-color: #686868;">
+              <source src="{{ video.content.url }}" type="video/mp4">
+              <source src="{{ video.content.url }}" type="video/ogg">
+            Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="video-details-wrapper">
+          <h3 class="video-title">{{ video.title }}</h3>
+          <small class="video-uploader-details">@{{ video.uploader }}, {{ video.created_at }}</small>
+          <p>{{ video.description}}</p>
+        </div>
+    </div>
+  {% endfor %}
+{% endblock content %}
